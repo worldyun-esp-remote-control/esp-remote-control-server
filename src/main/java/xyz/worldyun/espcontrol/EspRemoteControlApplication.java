@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("xyz.worldyun.espcontroly.mapper")
+@MapperScan("xyz.worldyun.espcontrol.mapper")
 public class EspRemoteControlApplication {
 
     public static void main(String[] args) {

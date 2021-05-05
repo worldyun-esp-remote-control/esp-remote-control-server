@@ -75,9 +75,4 @@ public class R {
         this.data.put("data", value);
         return this;
     }
-
-//    public R data(Map<String, Object> map){
-//        this.setData(map);
-//        return this;
-//    }
 }
