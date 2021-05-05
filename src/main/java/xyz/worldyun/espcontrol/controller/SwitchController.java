@@ -4,6 +4,7 @@ package xyz.worldyun.espcontrol.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -13,7 +14,7 @@ import org.springframework.stereotype.Controller;
  * @author WorldYun
  * @since 2021-05-05
  */
-@Controller
+@RestController
 @RequestMapping("//switch")
 public class SwitchController {
 

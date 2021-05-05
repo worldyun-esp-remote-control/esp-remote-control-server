@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 import org.springframework.util.StringUtils;
 import org.joda.time.DateTime;
+import xyz.worldyun.espcontrol.common.base.ResultCodeEnum;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.http.HttpServletRequest;
@@ -75,13 +76,13 @@ public class JwtUtils {
     }
 
     /**
-     * 根据token获取会员id
+     * 根据token获取会员信息
      * @param request
      * @return
      */
     public static JwtInfo getMemberIdByJwtToken(HttpServletRequest request) {
         String jwtToken = request.getHeader("X-Token");
-        MyAssert.notNull(jwtToken, 28004,"未登录");
+        MyAssert.notNull(jwtToken, ResultCodeEnum.LOGIN_AUTH);
         Jws<Claims> claimsJws = Jwts.parser().setSigningKey(getKeyInstance()).parseClaimsJws(jwtToken);
         Claims claims = claimsJws.getBody();
         JwtInfo jwtInfo = new JwtInfo(Integer.parseInt(claims.get("id").toString()), claims.get("userName").toString());

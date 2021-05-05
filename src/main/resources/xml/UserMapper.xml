@@ -4,13 +4,11 @@
 
     <select id="selectByUserName" resultType="xyz.worldyun.espcontrol.entity.User">
         SELECT
-            u.id,
-            u.user_name
+            u.*
         FROM
             user u
         WHERE
             u.user_name = #{userName}
-          AND u.password = #{password}
-          AND u.is_delete != 1
+            AND u.is_delete != 1
     </select>
 </mapper>

@@ -20,7 +20,7 @@ import xyz.worldyun.espcontrol.vo.UserVo;
  * @author WorldYun
  * @since 2021-05-05
  */
-@Controller
+@RestController
 @RequestMapping("/api/user")
 public class UserController {
     @Autowired

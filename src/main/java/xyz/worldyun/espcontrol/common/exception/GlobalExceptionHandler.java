@@ -17,15 +17,15 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = RuntimeException.class)
     public R handler(RuntimeException e) {
-        log.error("运行时异常：----------------{}", e);
+//        log.error("运行时异常：----------------{}", e);
         return R.error().message(e.getMessage());
     }
 
     @ExceptionHandler(value = MyException.class)
     @ResponseBody
     public  R MyExceptionHandler(HttpServletRequest req, MyException e){
-        log.error("发生业务异常！原因是：{}",e.getErrorMsg());
-        return new R().code(e.getErrorCode()).message(e.getErrorMsg());
+//        log.error("发生业务异常！原因是：{}",e.getErrorMsg());
+        return new R().success(false).code(e.getErrorCode()).message(e.getErrorMsg());
     }
 
 }
