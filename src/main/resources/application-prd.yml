@@ -1,0 +1,36 @@
+server:
+  port: 8081
+spring:
+  datasource:
+    url: jdbc:mysql://worldyun.xyz:3306/remote_control?useUnicode=true&characterEncoding=utf-8&useSSL=false&autoReconnect=true&failOverReadOnly=false
+    username: remote_control
+    password: remote_control
+    hikari:
+      # 连接池最小空闲连接数
+      minimum-idle: 10
+      # 连接池允许的最大连接数
+      maximum-pool-size: 100
+      # 等待连接池分配连接的最大时长（毫秒）
+      connection-timeout: 30000
+      # 一个连接的生命时长（毫秒）这里设置10min
+      max-lifetime: 600000
+      # 允许连接在池中闲置的最长时间(毫秒) 这里设置60s
+      idle-timeout: 60000
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+mybatis-plus:
+  mapper-locations: "/xml/*.xml"
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    db-config:
+      logic-delete-field: isDelete  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+logging:
+  level:
+    root: warn

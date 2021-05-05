@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="xyz.worldyun.espcontrol.mapper.UserMapper">
+
+    <select id="selectByUserName" resultType="xyz.worldyun.espcontrol.entity.User">
+        SELECT
+            u.id,
+            u.user_name
+        FROM
+            user u
+        WHERE
+            u.user_name = #{userName}
+          AND u.password = #{password}
+          AND u.is_delete != 1
+    </select>
+</mapper>
