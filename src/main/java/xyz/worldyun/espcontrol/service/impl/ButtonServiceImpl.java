@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import xyz.worldyun.espcontrol.common.base.ResultCodeEnum;
 import xyz.worldyun.espcontrol.common.exception.MyException;
 import xyz.worldyun.espcontrol.common.util.MyAssert;
@@ -42,6 +43,9 @@ public class ButtonServiceImpl extends ServiceImpl<ButtonMapper, Button> impleme
     @Autowired
     DeviceMapper deviceMapper;
 
+    @Value("${mqtt.deviceTopic}")
+    String deviceTopic;
+
     @Override
     public void learn(Button button) {
         MyAssert.notNull(button, ResultCodeEnum.PARAM_ERROR);
@@ -63,8 +67,8 @@ public class ButtonServiceImpl extends ServiceImpl<ButtonMapper, Button> impleme
             rawMapper.insert(raw);
         }
         String msg = getMessage(2, raw.getId(), null);
-        String topic = "/device/" + device.getMqttId();
-        MqttUtils.sendMessage(topic, msg, 2);
+        String topic = deviceTopic + device.getMqttId();
+        MqttUtils.sendMessage(topic, msg, 0);
     }
 
     @Override
@@ -88,7 +92,7 @@ public class ButtonServiceImpl extends ServiceImpl<ButtonMapper, Button> impleme
         }
 
         String msg = getMessage(1, raw.getId(), raw.getRawString());
-        String topic = "/device/" + device.getMqttId();
+        String topic = deviceTopic + device.getMqttId();
         MqttUtils.sendMessage(topic, msg, 0);
     }
 

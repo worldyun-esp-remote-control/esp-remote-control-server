@@ -32,6 +32,7 @@ mybatis-plus:
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
 
 mqtt:
+  deviceTopic: /device/                                #设备监听topic前缀
   config:
     channel1:                                          #通道名称，可自定义，订阅消息时需要该名称
       url: [tcp://worldyun.xyz:1883]                   #mqtt的url
