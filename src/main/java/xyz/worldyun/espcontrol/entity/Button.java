@@ -17,7 +17,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
   @EqualsAndHashCode(callSuper = false)
-    public class Botton implements Serializable {
+    public class Button implements Serializable {
 
     private static final long serialVersionUID=1L;
 

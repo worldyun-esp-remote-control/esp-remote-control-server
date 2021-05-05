@@ -1,7 +1,7 @@
 package xyz.worldyun.espcontrol.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import xyz.worldyun.espcontrol.entity.Botton;
+import xyz.worldyun.espcontrol.entity.Button;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -13,6 +13,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2021-05-05
  */
 @Mapper
-public interface BottonMapper extends BaseMapper<Botton> {
+public interface ButtonMapper extends BaseMapper<Button> {
 
 }

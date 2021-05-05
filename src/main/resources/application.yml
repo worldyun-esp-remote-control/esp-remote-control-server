@@ -12,10 +12,10 @@ spring:
       maximum-pool-size: 15
       # 等待连接池分配连接的最大时长（毫秒）
       connection-timeout: 30000
-      # 一个连接的生命时长（毫秒）这里设置10min
-      max-lifetime: 600000
-      # 允许连接在池中闲置的最长时间(毫秒) 这里设置60s
-      idle-timeout: 60000
+      # 一个连接的生命时长（毫秒）这里设置1min
+      max-lifetime: 60000
+      # 允许连接在池中闲置的最长时间(毫秒) 这里设置30s
+      idle-timeout: 30000
 
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -30,6 +30,32 @@ mybatis-plus:
       logic-delete-field: isDelete  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+
+mqtt:
+  config:
+    channel1:                                          #通道名称，可自定义，订阅消息时需要该名称
+      url: [tcp://worldyun.xyz:1883]                   #mqtt的url
+      topics: [/learn, /upload]                        #监听的主题，和qos一一对应
+      qos: [1, 1]                                      #监听主题的qos，和主题一一对应
+      username: server                                 #用户名
+      password: 123456                                 #密码
+      timeout: 60                                      #连接超时时间，单位：秒
+      kep-alive-interval: 30                           #心跳时间，单位：秒
+      async: true                                      #发送消息时是否异步发送
+      client-id-append-ip: false                       #是否在clientId后面追加本机ip，因为clientid是唯一值，集群环境下不能使用相同的clientid，追加ip可解决该问题
+      consumer-client-id: serverconsumer               #consumer client id配置
+      producer-client-id: serverproducer               #producer client id配置
+      consumer-will:                                   #consumer遗嘱消息配置
+        qos: 1                                         #遗嘱qos
+        topic: will_topic                              #遗嘱主题
+        payload: '{"id": "server"}'                    #遗嘱内容
+        retained: false                                #是否发送保留消息
+      producer-will:                                   #producer遗嘱消息配置
+        qos: 1                                         #遗嘱qos
+        topic: will_topic                              #遗嘱主题
+        payload: '{"id": "server"}'                    #遗嘱内容
+        retained: false                                #是否发送保留消息
+
 
 #logging:
 #  level:

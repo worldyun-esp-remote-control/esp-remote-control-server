@@ -1,8 +1,7 @@
 package xyz.worldyun.espcontrol.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import xyz.worldyun.espcontrol.entity.Button;
-import xyz.worldyun.espcontrol.entity.Raw;
+import xyz.worldyun.espcontrol.entity.Device;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,10 +10,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author WorldYun
- * @since 2021-05-05
+ * @since 2021-05-06
  */
 @Mapper
-public interface RawMapper extends BaseMapper<Raw> {
+public interface DeviceMapper extends BaseMapper<Device> {
 
-    Raw selectByBottonId(Button button);
 }

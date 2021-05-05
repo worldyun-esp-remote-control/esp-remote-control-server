@@ -1,6 +1,6 @@
 package xyz.worldyun.espcontrol.service;
 
-import xyz.worldyun.espcontrol.entity.Botton;
+import xyz.worldyun.espcontrol.entity.Button;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,6 +11,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author WorldYun
  * @since 2021-05-05
  */
-public interface BottonService extends IService<Botton> {
+public interface ButtonService extends IService<Button> {
 
+    void learn(Button button);
+
+    void press(Button button);
 }

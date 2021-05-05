@@ -27,6 +27,8 @@ public enum ResultCodeEnum {
     SIGN_UP_USERNAME_USED(false, 22005, "用户已存在"),
     SIGN_UP_ERROR(false, 22006, "注册失败"),
 
+    NO_PERMISSION(false, 22007, "没有权限"),
+
     CODE_ERROR(false, 23001, "验证码错误");
 
 

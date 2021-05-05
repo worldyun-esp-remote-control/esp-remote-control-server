@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 import xyz.worldyun.espcontrol.common.base.R;
-import xyz.worldyun.espcontrol.vo.LearnVo;
-import xyz.worldyun.espcontrol.service.RawService;
+import xyz.worldyun.espcontrol.entity.Button;
+import xyz.worldyun.espcontrol.service.ButtonService;
 
 /**
  * <p>
@@ -20,11 +20,23 @@ import xyz.worldyun.espcontrol.service.RawService;
  * @since 2021-05-05
  */
 @RestController
-@RequestMapping("/api/raw")
-public class RawController {
+@RequestMapping("/api/button")
+public class ButtonController {
 
     @Autowired
-    RawService rawService;
+    ButtonService buttonService;
 
+    @PostMapping("/learn")
+    public R learn(@RequestBody Button button){
+
+        buttonService.learn(button);
+        return R.ok();
+    }
+
+    @PostMapping("/press")
+    public R press(Button button){
+        buttonService.press(button);
+        return R.ok();
+    }
 }
 

@@ -1,11 +1,9 @@
 package xyz.worldyun.espcontrol.controller;
 
 
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.stereotype.Controller;
 import xyz.worldyun.espcontrol.common.base.R;
 import xyz.worldyun.espcontrol.common.util.UserDetail;
 import xyz.worldyun.espcontrol.entity.User;

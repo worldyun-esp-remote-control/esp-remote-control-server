@@ -4,7 +4,6 @@ package xyz.worldyun.espcontrol.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -12,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author WorldYun
- * @since 2021-05-05
+ * @since 2021-05-06
  */
-@RestController
-@RequestMapping("//botton")
-public class BottonController {
+@Controller
+@RequestMapping("//device")
+public class DeviceController {
 
 }
 

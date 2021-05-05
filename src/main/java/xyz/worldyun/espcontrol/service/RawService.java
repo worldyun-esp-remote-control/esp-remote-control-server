@@ -1,5 +1,6 @@
 package xyz.worldyun.espcontrol.service;
 
+import xyz.worldyun.espcontrol.vo.LearnVo;
 import xyz.worldyun.espcontrol.entity.Raw;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface RawService extends IService<Raw> {
 
+    void deviceLearn(LearnVo learn);
 }

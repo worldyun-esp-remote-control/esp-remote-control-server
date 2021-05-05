@@ -1,5 +1,7 @@
 package xyz.worldyun.espcontrol.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
@@ -11,28 +13,39 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author WorldYun
- * @since 2021-05-05
+ * @since 2021-05-06
  */
 @Data
   @EqualsAndHashCode(callSuper = false)
-    public class Raw implements Serializable {
+    public class Device implements Serializable {
 
     private static final long serialVersionUID=1L;
 
       /**
-     * raw id
+     * 设备id
      */
-        private Integer id;
+        @TableId(value = "id", type = IdType.AUTO)
+      private Integer id;
 
       /**
-     * 按钮id
+     * 设备名
      */
-      private Integer buttonId;
+      private String deviceName;
 
       /**
-     * 序列化存储raw数据
+     * 用户id
      */
-      private String rawString;
+      private Integer userId;
+
+      /**
+     * 设备mqtt
+     */
+      private String mqttId;
+
+      /**
+     * 上一次心跳时间
+     */
+      private LocalDateTime lastHeartbeatTime;
 
       /**
      * 创建时间
@@ -47,7 +60,7 @@ import lombok.EqualsAndHashCode;
       /**
      * 逻辑删除：0：未删除，1：已删除
      */
-      private Integer isDelete;
+      private Boolean isDelete;
 
 
 }
