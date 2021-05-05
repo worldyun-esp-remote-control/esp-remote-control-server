@@ -34,7 +34,7 @@ public class ButtonController {
     }
 
     @PostMapping("/press")
-    public R press(Button button){
+    public R press(@RequestBody Button button){
         buttonService.press(button);
         return R.ok();
     }

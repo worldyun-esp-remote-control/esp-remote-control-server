@@ -8,7 +8,7 @@
         FROM
             raw r
         WHERE
-            r.botton_id = #{id}
+            r.button_id = #{id}
             AND r.is_delete != 1
     </select>
 </mapper>

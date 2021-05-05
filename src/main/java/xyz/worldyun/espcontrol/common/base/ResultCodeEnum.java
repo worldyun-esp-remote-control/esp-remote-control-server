@@ -29,7 +29,11 @@ public enum ResultCodeEnum {
 
     NO_PERMISSION(false, 22007, "没有权限"),
 
-    CODE_ERROR(false, 23001, "验证码错误");
+    CODE_ERROR(false, 23001, "验证码错误"),
+
+    BUTTON_NO_RAW(false, 24001, "按钮尚未学习");
+
+
 
 
     private Boolean success;

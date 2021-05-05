@@ -2,6 +2,7 @@ package xyz.worldyun.espcontrol.service.impl;
 
 import cn.xyliang.mqtt.utils.MqttUtils;
 import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.TypeReference;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import xyz.worldyun.espcontrol.common.base.ResultCodeEnum;
@@ -61,20 +62,50 @@ public class ButtonServiceImpl extends ServiceImpl<ButtonMapper, Button> impleme
             raw.setButtonId(button.getId());
             rawMapper.insert(raw);
         }
-        LearnVo learnVo = new LearnVo();
-        learnVo.setRawID(raw.getId());
-
-        JSONObject msg = new JSONObject();
-        msg.put("id", 1);
-        msg.put("codeType", 2);
-        msg.put("data", learnVo);
-        log.info("Learn Json ----------- {}",msg.toJSONString());
+        String msg = getMessage(2, raw.getId(), null);
         String topic = "/device/" + device.getMqttId();
-        MqttUtils.sendMessage(topic, msg.toJSONString(), 2);
+        MqttUtils.sendMessage(topic, msg, 2);
     }
 
     @Override
     public void press(Button button) {
+        MyAssert.notNull(button, ResultCodeEnum.PARAM_ERROR);
+        MyAssert.notNull(button.getId(), ResultCodeEnum.PARAM_ERROR);
 
+        Button button1 = buttonMapper.selectById(button.getId());
+        MyAssert.notNull(button1, ResultCodeEnum.PARAM_ERROR);
+        User userDetail = UserDetail.getUserDetail();
+        if (!userDetail.getId().equals(button1.getUserId())){
+            throw new MyException(ResultCodeEnum.NO_PERMISSION);
+        }
+
+        Device device = deviceMapper.selectById(button1.getDeviceId());
+        Raw raw = rawMapper.selectByBottonId(button);
+        MyAssert.notNull(raw, ResultCodeEnum.BUTTON_NO_RAW);
+        MyAssert.notNull(raw.getRawString(),ResultCodeEnum.BUTTON_NO_RAW);
+        if (raw.getRawString().length() == 0){
+            throw new MyException(ResultCodeEnum.BUTTON_NO_RAW);
+        }
+
+        String msg = getMessage(1, raw.getId(), raw.getRawString());
+        String topic = "/device/" + device.getMqttId();
+        MqttUtils.sendMessage(topic, msg, 0);
+    }
+
+    public String getMessage(Integer codeType, Integer rawID, String rawString){
+        LearnVo learnVo = new LearnVo();
+        learnVo.setRawID(rawID);
+
+        if (codeType.equals(1)){
+            LearnVo learnVo1 = JSONObject.parseObject(rawString, new TypeReference<LearnVo>(){});
+            learnVo.setRaw(learnVo1.getRaw());
+        }
+
+        JSONObject msg = new JSONObject();
+        msg.put("id", 1);
+        msg.put("codeType", codeType);
+        msg.put("data", learnVo);
+        log.info("Send Json ------- {}",msg.toJSONString());
+        return msg.toJSONString();
     }
 }
