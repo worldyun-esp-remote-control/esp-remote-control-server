@@ -14,6 +14,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import xyz.worldyun.espcontrol.vo.UserVo;
 
+import java.util.Date;
+
 /**
  * <p>
  *  服务实现类
@@ -62,6 +64,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new MyException(ResultCodeEnum.PASSWORD_ERROR);
         }
         user.setPassword(userVo.getNewPassword());
+        user.setModifyTime(new Date());
         userMapper.updateById(user);
         return user;
     }
@@ -70,6 +73,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void delete() {
         User userDetail = UserDetail.getUserDetail();
         userMapper.deleteById(userDetail);
+    }
+
+    @Override
+    public String refresh() {
+        User userDetail = UserDetail.getUserDetail();
+        JwtInfo jwtInfo = new JwtInfo(userDetail.getId(), userDetail.getUserName());
+        return JwtUtils.getJwtToken(jwtInfo, 60*60*24*30);
     }
 
     public void valid(User user){

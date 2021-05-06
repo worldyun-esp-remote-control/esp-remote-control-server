@@ -82,6 +82,17 @@ public class UserController {
         return R.ok().message("删除成功");
     }
 
+    /**
+     * 更新token
+     * @param
+     * @return
+     */
+    @GetMapping("/refresh")
+    public R refresh(){
+        String token = userService.refresh();
+        return R.ok().data("token",token);
+    }
+
     @PostMapping("/logout")
     public R logout() {
         return R.ok();

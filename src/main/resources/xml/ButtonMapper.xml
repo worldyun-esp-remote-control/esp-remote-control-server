@@ -2,4 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xyz.worldyun.espcontrol.mapper.ButtonMapper">
 
+    <select id="list" resultType="xyz.worldyun.espcontrol.entity.Button">
+        <bind name="userDetail" value="@xyz.worldyun.espcontrol.common.util.UserDetail@getUserDetail()"/>
+        SELECT
+            b.id,
+            b.button_name,
+            b.device_id
+        FROM
+            button b
+        <where>
+            b.is_delete != 1
+            AND b.user_id = #{userDetail.id}
+            <if test="deviceId != null">
+                AND b.device_id = #{deviceId}
+            </if>
+            <if test="buttonName != null">
+                AND b.button_name like concat('%',#{buttonName},'%')
+            </if>
+        </where>
+        ORDER BY b.id DESC
+    </select>
 </mapper>

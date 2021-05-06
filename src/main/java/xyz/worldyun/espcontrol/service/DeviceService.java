@@ -1,7 +1,11 @@
 package xyz.worldyun.espcontrol.service;
 
+import xyz.worldyun.espcontrol.dto.DeviceDto;
 import xyz.worldyun.espcontrol.entity.Device;
 import com.baomidou.mybatisplus.extension.service.IService;
+import xyz.worldyun.espcontrol.vo.HeartBeatVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +17,13 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface DeviceService extends IService<Device> {
 
+    void heartBeat(HeartBeatVo heartBeatVo);
+
+    Device add(Device device);
+
+    boolean delete(Device device);
+
+    Device update(Device device);
+
+    List<DeviceDto> list(Device device);
 }

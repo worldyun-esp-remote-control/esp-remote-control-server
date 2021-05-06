@@ -1,6 +1,7 @@
 package xyz.worldyun.espcontrol.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import xyz.worldyun.espcontrol.vo.LearnVo;
@@ -9,6 +10,8 @@ import xyz.worldyun.espcontrol.mapper.RawMapper;
 import xyz.worldyun.espcontrol.service.RawService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -36,6 +39,7 @@ public class RawServiceImpl extends ServiceImpl<RawMapper, Raw> implements RawSe
 
         Raw raw = rawMapper.selectById(learn.getRawID());
         raw.setRawString(jsonObject.toJSONString());
+        raw.setModifyTime(new Date());
         rawMapper.updateById(raw);
     }
 }

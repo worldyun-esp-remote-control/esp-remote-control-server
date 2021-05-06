@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import xyz.worldyun.espcontrol.entity.Button;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -15,4 +17,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 @Mapper
 public interface ButtonMapper extends BaseMapper<Button> {
 
+    List<Button> list(Button button);
 }

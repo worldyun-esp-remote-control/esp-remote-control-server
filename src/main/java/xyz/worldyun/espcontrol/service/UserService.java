@@ -39,4 +39,6 @@ public interface UserService extends IService<User> {
      * 删除账户
      */
     void delete();
+
+    String refresh();
 }

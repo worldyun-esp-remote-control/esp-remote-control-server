@@ -22,6 +22,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import xyz.worldyun.espcontrol.vo.LearnVo;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * <p>
  *  服务实现类
@@ -51,12 +54,7 @@ public class ButtonServiceImpl extends ServiceImpl<ButtonMapper, Button> impleme
         MyAssert.notNull(button, ResultCodeEnum.PARAM_ERROR);
         MyAssert.notNull(button.getId(), ResultCodeEnum.PARAM_ERROR);
 
-        Button button1 = buttonMapper.selectById(button.getId());
-        MyAssert.notNull(button1, ResultCodeEnum.PARAM_ERROR);
-        User userDetail = UserDetail.getUserDetail();
-        if (!userDetail.getId().equals(button1.getUserId())){
-            throw new MyException(ResultCodeEnum.NO_PERMISSION);
-        }
+        Button button1 = getButtonById(button.getId());
 
         Device device = deviceMapper.selectById(button1.getDeviceId());
 
@@ -96,6 +94,58 @@ public class ButtonServiceImpl extends ServiceImpl<ButtonMapper, Button> impleme
         MqttUtils.sendMessage(topic, msg, 0);
     }
 
+    @Override
+    public Button add(Button button) {
+        MyAssert.notNull(button, ResultCodeEnum.PARAM_ERROR);
+        MyAssert.notNull(button.getButtonName(), ResultCodeEnum.PARAM_ERROR);
+        MyAssert.notNull(button.getDeviceId(), ResultCodeEnum.PARAM_ERROR);
+        Device device = deviceMapper.selectById(button.getDeviceId());
+        MyAssert.notNull(device, ResultCodeEnum.NO_DEVICE);
+        User userDetail = UserDetail.getUserDetail();
+        button.setUserId(userDetail.getId());
+        buttonMapper.insert(button);
+        return button;
+    }
+
+    @Override
+    public boolean delete(Button button) {
+        MyAssert.notNull(button, ResultCodeEnum.PARAM_ERROR);
+        MyAssert.notNull(button.getId(), ResultCodeEnum.PARAM_ERROR);
+
+        Button button1 = getButtonById(button.getId());
+
+        buttonMapper.deleteById(button1.getId());
+        return true;
+    }
+
+    @Override
+    public Button update(Button button) {
+        MyAssert.notNull(button, ResultCodeEnum.PARAM_ERROR);
+        MyAssert.notNull(button.getId(), ResultCodeEnum.PARAM_ERROR);
+
+        buttonMapper.selectById(button.getId());
+        MyAssert.notNull(getButtonById(button.getId()), ResultCodeEnum.PARAM_ERROR);
+
+        buttonMapper.updateById(button);
+        return button;
+    }
+
+    @Override
+    public List<Button> list(Button button) {
+        List<Button> buttons = buttonMapper.list(button);
+        return buttons;
+    }
+
+    public Button getButtonById(Integer id){
+        Button button = buttonMapper.selectById(id);
+        MyAssert.notNull(button, ResultCodeEnum.PARAM_ERROR);
+
+        User userDetail = UserDetail.getUserDetail();
+        if ( !button.getUserId().equals(userDetail.getId())){
+            throw new MyException(ResultCodeEnum.PASSWORD_ERROR);
+        }
+        return button;
+    }
     public String getMessage(Integer codeType, Integer rawID, String rawString){
         LearnVo learnVo = new LearnVo();
         learnVo.setRawID(rawID);

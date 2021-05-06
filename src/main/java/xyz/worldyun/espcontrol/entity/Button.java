@@ -1,9 +1,13 @@
 package xyz.worldyun.espcontrol.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -30,7 +34,7 @@ import lombok.EqualsAndHashCode;
       /**
      * 按钮名称
      */
-      private String name;
+      private String buttonName;
 
       /**
      * 用户id
@@ -45,12 +49,14 @@ import lombok.EqualsAndHashCode;
       /**
      * 创建时间
      */
-      private LocalDateTime creatTime;
+      @TableField(value = "creat_time", fill = FieldFill.INSERT)
+      private Date creatTime;
 
       /**
      * 修改时间
      */
-      private LocalDateTime modifyTime;
+      @TableField(value = "modify_time", fill = FieldFill.INSERT_UPDATE)
+      private Date modifyTime;
 
       /**
      * 逻辑删除：0：未删除，1：已删除
