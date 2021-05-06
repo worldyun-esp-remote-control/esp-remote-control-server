@@ -35,7 +35,7 @@ mqtt:
   deviceTopic: /device/                                #设备监听topic前缀
   config:
     channel1:                                          #通道名称，可自定义，订阅消息时需要该名称
-      url: [tcp://worldyun.xyz:1883]                   #mqtt的url
+      url: [tcp://mqtt.worldyun.xyz:1883]              #mqtt的url
       topics: [/learn, /upload]                        #监听的主题，和qos一一对应
       qos: [1, 1]                                      #监听主题的qos，和主题一一对应
       username: server                                 #用户名
