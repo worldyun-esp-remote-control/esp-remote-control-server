@@ -80,9 +80,9 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceMapper, Device> impleme
     @Override
     public boolean delete(Device device) {
         MyAssert.notNull(device, ResultCodeEnum.PARAM_ERROR);
-        MyAssert.notNull(device.getMqttId(), ResultCodeEnum.PARAM_ERROR);
+        MyAssert.notNull(device.getId(), ResultCodeEnum.PARAM_ERROR);
 
-        Device device1 = deviceMapper.selectByMqttId(device);
+        Device device1 = deviceMapper.selectById(device.getId());
         MyAssert.notNull(device1, ResultCodeEnum.NO_DEVICE);
 
         User userDetail = UserDetail.getUserDetail();
@@ -97,12 +97,16 @@ public class DeviceServiceImpl extends ServiceImpl<DeviceMapper, Device> impleme
     @Override
     public Device update(Device device) {
         MyAssert.notNull(device, ResultCodeEnum.PARAM_ERROR);
-        MyAssert.notNull(device.getMqttId(), ResultCodeEnum.PARAM_ERROR);
+        MyAssert.notNull(device.getId(), ResultCodeEnum.PARAM_ERROR);
         MyAssert.notNull(device.getDeviceName(), ResultCodeEnum.PARAM_ERROR);
 
-        Device device1 = deviceMapper.selectByMqttId(device);
+        Device device1 = deviceMapper.selectById(device.getId());
         MyAssert.notNull(device1, ResultCodeEnum.NO_DEVICE);
 
+        User userDetail = UserDetail.getUserDetail();
+        if ( !userDetail.getId().equals(device1.getUserId())){
+            throw new MyException(ResultCodeEnum.NO_PERMISSION);
+        }
         device1.setDeviceName(device.getDeviceName());
         device1.setModifyTime(new Date());
         deviceMapper.updateById(device1);
